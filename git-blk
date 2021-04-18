@@ -1,6 +1,16 @@
-# git-blk
+#!/bin/bash
+#----
+# Execute git command on multiple repositories.
+#----
 
-```
+readonly repos_name="$1"
+shift
+
+readonly CONFIG_NAME='.git-blk'
+
+# If repos name is empty then show usage and exit.
+if [ -z "$repos_name" ]; then
+  cat << EOC
 Usage:
   git blk <repos-name> <git-command>
 
@@ -30,14 +40,28 @@ Example:
 How to bulk commit:
   1. Edit commit message file. (e.g. \`vim COMMIT_MSG.txt\`)
   2. Execute \`git blk <repos-name> commit -F ../COMMIT_MSG.txt\`
-```
+EOC
+  exit 1
+fi
 
-## Install
+# Read repository list. if list is empty then exit as error.
+repo_list="$(git config -f "$CONFIG_NAME" --get "repos.$repos_name")"
+if [ -z "$repo_list" ]; then
+  echo "No such repos name: '$repos_name'"
+  echo
+  cat "$CONFIG_NAME"
+  exit 1
+fi
+readonly repo_list
 
-1. `chmod +x ./install.sh`
-1. `./install.sh`
+# Execute git command.
+read -r -a repos <<< "$repo_list"
+for repo in "${repos[@]}"; do
+  echo
+  tput rev
+  echo "> git -C $repo $*"
+  tput sgr 0
 
-**Manual**
-
-1. Copy `git-blk` to git binary folder. (e.g. `/usr/local/bin/`)
-1. Add execute permission. (e.g. `chmod +x /usr/local/bin/git-blk`)
+  git -C "$repo" "$@"
+done
+echo

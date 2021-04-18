@@ -1,0 +1,5 @@
+[repos]
+# repos-name = repo-dir repo-dir ...
+
+all   = repo1 repo2 repo3
+large = repo1 repo2
