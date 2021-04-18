@@ -29,7 +29,7 @@ Example:
 
 How to bulk commit:
   1. Edit commit message file. (e.g. `vim COMMIT_MSG.txt`)
-  2. Execute `git blk <repos-name> commit -F ../COMMIT_MSG.txt`
+  2. Execute `git blk <repos-name> commit -F "$PWD/COMMIT_MSG.txt"`
 ```
 
 ## Install
