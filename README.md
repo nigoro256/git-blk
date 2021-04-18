@@ -7,8 +7,8 @@ Usage:
 Description:
   Execute git command on multiple repositories.
 
-  This command require config file './$CONFIG_NAME'.
-  '$CONFIG_NAME' example:
+  This command require config file './.git-blk'.
+  '.git-blk' example:
   ----
   [repos]
   # repos-name = repo-dir repo-dir ...
@@ -28,8 +28,8 @@ Example:
     > git -C repo2 lfs install --local
 
 How to bulk commit:
-  1. Edit commit message file. (e.g. \`vim COMMIT_MSG.txt\`)
-  2. Execute \`git blk <repos-name> commit -F ../COMMIT_MSG.txt\`
+  1. Edit commit message file. (e.g. `vim COMMIT_MSG.txt`)
+  2. Execute `git blk <repos-name> commit -F ../COMMIT_MSG.txt`
 ```
 
 ## Install
